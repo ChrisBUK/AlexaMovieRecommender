@@ -1,0 +1,52 @@
+GetRandomMovie suggest a movie
+GetRandomMovie recommend a movie
+GetRandomMovie suggest a film
+GetRandomMovie recommend a film
+
+GetRandomMovieByGenre suggest a {MovieGenre} 
+GetRandomMovieByGenre recommend a {MovieGenre} 
+GetRandomMovieByGenre suggest a {MovieGenre} movie 
+GetRandomMovieByGenre recommend a {MovieGenre} movie
+GetRandomMovieByGenre suggest a {MovieGenre} film
+GetRandomMovieByGenre recommend a {MovieGenre} film
+
+GetRandomMovieByActor suggest a {MovieActor} movie
+GetRandomMovieByActor recommend a {MovieActor} movie
+GetRandomMovieByActor suggest a {MovieActor} film
+GetRandomMovieByActor recommend a {MovieActor} film
+GetRandomMovieByActor suggest something with {MovieActor} in it
+GetRandomMovieByActor recommend something with {MovieActor} in it
+GetRandomMovieByActor suggest a movie with {MovieActor}
+GetRandomMovieByActor recommend a movie with {MovieActor}
+GetRandomMovieByActor suggest a movie with {MovieActor} in it
+GetRandomMovieByActor recommend a movie with {MovieActor} in it
+GetRandomMovieByActor suggest a film with {MovieActor} in it
+GetRandomMovieByActor recommend a film with {MovieActor} in it
+
+GetLatestMovies what are the latest movies
+GetLatestMovies what are the latest films
+GetLatestMovies what movies have come out recently
+GetLatestMovies what films have come out recently
+
+GetLatestMoviesByGenre what are the latest {MovieGenre} movies
+GetLatestMoviesByGenre what are the latest {MovieGenre} films
+
+GetLatestMoviesByActor what are the latest {MovieActor} movies
+GetLatestMoviesByActor what are the latest {MovieActor} films
+GetLatestMoviesByActor what are the latest movies with {MovieActor}
+GetLatestMoviesByActor what are the latest films with {MovieActor}
+
+GetMovieInfo tell me about that one
+GetMovieInfo tell me about the movie
+GetMovieInfo tell me about the film
+GetMovieInfo give me more information
+GetMovieInfo get movie information
+GetMovieInfo get film information
+GetMovieInfo get more information
+GetMovieInfo tell me more
+GetMovieInfo go on
+GetMovieInfo information
+
+EndInteraction thank you
+EndInteraction thanks
+EndInteraction that will be all

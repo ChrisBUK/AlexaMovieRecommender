@@ -1,0 +1,20 @@
+action
+comedy
+horror
+western
+crime
+indie
+thriller
+adventure
+sci-fi
+science fiction
+family
+animation
+fantasy
+kids
+drama
+classic
+romance
+world cinema
+disney
+factual

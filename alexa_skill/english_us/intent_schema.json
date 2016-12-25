@@ -1,0 +1,53 @@
+{
+  "intents": [
+    { 
+      "intent": "AMAZON.HelpIntent"
+    },
+    {
+      "intent": "AMAZON.StopIntent"
+    },
+    {
+      "intent": "GetRandomMovie"
+    },
+   {
+      "intent": "GetRandomMovieByGenre",
+            "slots": [
+              {
+                "name": "MovieGenre",
+                "type": "LIST_OF_GENRES"
+              }
+            ]
+    },
+    {
+      "intent": "GetRandomMovieByActor",
+            "slots": [
+              {
+                "name": "MovieActor",
+                "type": "AMAZON.Actor"
+              }
+             ]
+    },        
+    {
+      "intent": "GetLatestMovies"
+    },
+    {
+      "intent": "GetLatestMoviesByGenre",
+            "slots": [
+        {
+          "name": "MovieGenre",
+          "type": "LIST_OF_GENRES"
+        }
+             ]
+    },
+    {
+      "intent": "GetLatestMoviesByActor",
+            "slots": [
+              {
+                "name": "MovieActor",
+                "type": "AMAZON.Actor"
+              }
+             ]
+    }    
+  ]
+}
+
