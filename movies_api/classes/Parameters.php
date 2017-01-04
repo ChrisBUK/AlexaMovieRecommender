@@ -89,6 +89,12 @@
                     $strParamValue = !empty($arrParamSource['actor']) ? $arrParamSource['actor'] : null;
                     break;
 
+                case 'year':
+                    $strParamValue = !empty($arrParamSource['year']) ? intval($arrParamSource['year']) : null;                
+
+                case 'rating':
+                    $strParamValue = !empty($arrParamSource['rating']) ? intval($arrParamSource['rating']) : null;                
+
                 default:
                     return null;
                     break;

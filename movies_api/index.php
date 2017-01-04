@@ -43,6 +43,60 @@ try {
             $strJson = $objRequest->getRandomMovieByGenre($_GET);
             break;
 
+        //get a movie by actor and genre
+        case 'get/movieByActorAndGenre':
+            $objRequest = new DataMovies();
+            $strJson = $objRequest->getRandomMovieByActorAndGenre($_GET);
+            break;
+
+        //get a list of latest movies
+        case 'get/latestMovies':
+            $objRequest = new DataMovies();
+            $strJson = $objRequest->getLatestMovies($_GET);
+            break;
+     
+        //get a list of latest movies by genre
+        case 'get/latestMoviesByGenre':
+            $objRequest = new DataMovies();
+            $strJson = $objRequest->getLatestMoviesByGenre($_GET);
+            break;
+     
+        //get a list of latest movies by actor
+        case 'get/latestMoviesByActor':
+            $objRequest = new DataMovies();
+            $strJson = $objRequest->getLatestMoviesByActor($_GET);
+            break;
+     
+        //get a list of latest movies by actor and genre
+        case 'get/latestMoviesByActorAndGenre':
+            $objRequest = new DataMovies();
+            $strJson = $objRequest->getLatestMoviesByActorAndGenre($_GET);
+            break;
+     
+        //get best rated movies
+        case 'get/bestMovies':
+            $objRequest = new DataMovies();
+            $strJson = $objRequest->getHighestRatedMovies($_GET);
+            break;
+     
+        //get best rated movies by genre
+        case 'get/bestMoviesByGenre':
+            $objRequest = new DataMovies();
+            $strJson = $objRequest->getHighestRatedMoviesByGenre($_GET);
+            break;
+     
+        //get best rated movies by actor
+        case 'get/bestMoviesByActor':
+            $objRequest = new DataMovies();
+            $strJson = $objRequest->getHighestRatedMoviesByActor($_GET);
+            break;
+     
+        //get best rated movies by year
+        case 'get/bestMoviesByYear':
+            $objRequest = new DataMovies();
+            $strJson = $objRequest->getHighestRatedMoviesByYear($_GET);
+            break;
+
         default:
             throw new ApiException("Unrecognised API request: $strResource");
             die;
