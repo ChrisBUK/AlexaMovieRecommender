@@ -37,6 +37,8 @@ def on_intent(intent_request, session):
         return get_random_movie_by_genre(intent, session)
     elif intent_name == "GetRandomMovieByActor":
         return get_random_movie_by_actor(intent,session)
+    elif intent_name == "GetRandomMovieByActorAndGenre":
+        return get_random_movie_by_actor_and_genre(intent,session)        
     elif intent_name == "GetLatestMovies":
         return get_latest_movies(intent, session)
     elif intent_name == "GetLatestMoviesByGenre":
@@ -47,10 +49,10 @@ def on_intent(intent_request, session):
         return get_movie_info(intent, session)
     elif intent_name == "AMAZON.RepeatIntent":
         return get_last_response(intent, session)
-    #elif intent_name == "AMAZON.YesIntent":
-    #    return
-    #elif intent_name == "AMAZON.NoIntent":
-    #    return
+    elif intent_name == "AMAZON.YesIntent":
+        return get_yes_response(intent, session)
+    elif intent_name == "AMAZON.NoIntent":
+        return get_no_response(intent, session)
     elif intent_name == "AMAZON.HelpIntent":
         return get_welcome_response(session)
     elif intent_name == "EndInteraction" or intent_name == "AMAZON.CancelIntent" or intent_name == "AMAZON.StopIntent":
@@ -113,6 +115,7 @@ def get_random_movie(intent, session):
 
     speechlet = build_speechlet_response(card, initial_speech, reprompt_speech, should_end_session)
     session_attributes = create_attribute_repeat(speechlet, session_attributes)
+    session_attributes = create_attribute_conversation_context('initiateDownload', session_attributes)    
     return build_response(session_attributes, speechlet)
 
 def get_random_movie_by_genre(intent, session):
@@ -124,7 +127,7 @@ def get_random_movie_by_genre(intent, session):
     session_attributes = create_attribute_current_movie(movie['movie']['title'], session_attributes)
     session_attributes = create_attribute_current_movie_id(movie['movie']['uuid'], session_attributes)
   
-    initial_speech = "Have you seen " + movie['movie']['title'] + "?"
+    initial_speech = "Would you like to watch " + movie['movie']['title'] + "?"
     reprompt_speech = ""
 
     card_title = "Movie Recommendation"
@@ -136,6 +139,7 @@ def get_random_movie_by_genre(intent, session):
 
     speechlet = build_speechlet_response(card, initial_speech, reprompt_speech, should_end_session)
     session_attributes = create_attribute_repeat(speechlet, session_attributes)
+    session_attributes = create_attribute_conversation_context('initiateDownload', session_attributes)    
     return build_response(session_attributes, speechlet)
 
 def get_random_movie_by_actor(intent, session):
@@ -147,7 +151,7 @@ def get_random_movie_by_actor(intent, session):
     session_attributes = create_attribute_current_movie(movie['movie']['title'], session_attributes)
     session_attributes = create_attribute_current_movie_id(movie['movie']['uuid'], session_attributes)
   
-    initial_speech = intent['slots']['MovieActor']['value'] + " is in " + movie['movie']['title'] + ", how about that?"
+    initial_speech = intent['slots']['MovieActor']['value'] + " is in " + movie['movie']['title'] + ", would you like to watch it?"
     reprompt_speech = ""
 
     card_title = "Movie Recommendation"
@@ -159,6 +163,31 @@ def get_random_movie_by_actor(intent, session):
 
     speechlet = build_speechlet_response(card, initial_speech, reprompt_speech, should_end_session)
     session_attributes = create_attribute_repeat(speechlet, session_attributes)
+    session_attributes = create_attribute_conversation_context('initiateDownload', session_attributes)    
+    return build_response(session_attributes, speechlet)
+
+def get_random_movie_by_actor_and_genre(intent, session):
+    session_attributes = session.get('attributes', {})
+
+    response = urllib2.urlopen(API_BASE + "?action=movieByActorAndGenre&actor=" + get_intent_actor(intent) + "&genre=" + get_intent_genre(intent))
+    movie = json.load(response)
+
+    session_attributes = create_attribute_current_movie(movie['movie']['title'], session_attributes)
+    session_attributes = create_attribute_current_movie_id(movie['movie']['uuid'], session_attributes)
+  
+    initial_speech = "A " + intent['slots']['MovieGenre']['value'] + " movie with " + intent['slots']['MovieActor']['value'] + ". How about " + movie['movie']['title'] + "?"
+    reprompt_speech = ""
+
+    card_title = "Movie Recommendation"
+    card_text = initial_speech
+
+    card = build_card("Simple", card_title, card_text)
+
+    should_end_session = False
+
+    speechlet = build_speechlet_response(card, initial_speech, reprompt_speech, should_end_session)
+    session_attributes = create_attribute_repeat(speechlet, session_attributes)
+    session_attributes = create_attribute_conversation_context('initiateDownload', session_attributes)    
     return build_response(session_attributes, speechlet)
 
 def get_latest_movies(intent, session):
@@ -239,6 +268,46 @@ def get_movie_info(intent, session):
 
     speechlet = build_speechlet_response(card, initial_speech, reprompt_speech, should_end_session)
     session_attributes = create_attribute_repeat(speechlet, session_attributes)
+    session_attributes = create_attribute_conversation_context('initiateDownload', session_attributes)
+    return build_response(session_attributes, speechlet)
+
+def get_yes_response(intent, session):
+    session_attributes = session.get('attributes', {})
+    context = session_attributes.get('currentContext', '')
+
+    if context == 'initiateDownload':
+        initial_speech = "OK, I'll download " + session_attributes['currentMovie'] + " to your Sky Q box now."
+        reprompt_speech = ""
+    else:
+        initial_speech = "I don't know what you're saying yes to."
+        reprompt_speech = "Ask me to suggest a movie."
+
+    should_end_session = False
+    card = None
+
+    speechlet = build_speechlet_response(card, initial_speech, reprompt_speech, should_end_session)
+    session_attributes = create_attribute_repeat(speechlet, session_attributes)
+    session_attributes = create_attribute_conversation_context('None', session_attributes)
+    return build_response(session_attributes, speechlet)
+
+
+def get_no_response(intent, session):
+    session_attributes = session.get('attributes', {})
+    context = session_attributes.get('currentContext', '')
+
+    if context == 'initiateDownload':
+        initial_speech = "OK, I won't download that."
+        reprompt_speech = "Ask me to suggest a movie."
+    else:
+        initial_speech = "I don't know what you're saying no to."
+        reprompt_speech = "Ask me to suggest a movie."
+
+    should_end_session = False
+    card = None
+
+    speechlet = build_speechlet_response(card, initial_speech, reprompt_speech, should_end_session)
+    session_attributes = create_attribute_repeat(speechlet, session_attributes)
+    session_attributes = create_attribute_conversation_context('None', session_attributes)
     return build_response(session_attributes, speechlet)
 
 # --- Intent helpers ---
@@ -278,6 +347,10 @@ def create_attribute_current_genre(genre, session_attributes):
 
 def create_attribute_current_actor(actor, session_attributes):
     session_attributes['currentActor'] = actor
+    return session_attributes
+
+def create_attribute_conversation_context(topic, session_attributes):
+    session_attributes['currentContext'] = topic
     return session_attributes
 
 def create_attribute_repeat(response, session_attributes):
