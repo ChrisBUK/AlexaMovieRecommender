@@ -23,6 +23,11 @@ GetRandomMovieByActor recommend a movie with {MovieActor} in it
 GetRandomMovieByActor suggest a film with {MovieActor} in it
 GetRandomMovieByActor recommend a film with {MovieActor} in it
 
+GetRandomMovieByActorAndGenre recommend a {MovieGenre} movie with {MovieActor}
+GetRandomMovieByActorAndGenre recommend a {MovieGenre} film with {MovieActor}
+GetRandomMovieByActorAndGenre suggest a {MovieGenre} movie with {MovieActor}
+GetRandomMovieByActorAndGenre suggest a {MovieGenre} film with {MovieActor}
+
 GetLatestMovies what are the latest movies
 GetLatestMovies what are the latest films
 GetLatestMovies what movies have come out recently
@@ -37,12 +42,7 @@ GetLatestMoviesByActor what are the latest movies with {MovieActor}
 GetLatestMoviesByActor what are the latest films with {MovieActor}
 
 GetMovieInfo tell me about that one
-GetMovieInfo tell me about the movie
-GetMovieInfo tell me about the film
 GetMovieInfo give me more information
-GetMovieInfo get movie information
-GetMovieInfo get film information
-GetMovieInfo get more information
 GetMovieInfo tell me more
 GetMovieInfo go on
 GetMovieInfo information
